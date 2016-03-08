@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Getting Started with WRTNode on Windows 8.1 | Sredeption</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Connecting USB-to-Serial Comm PortGetting through the serial port on windows 8.1 annoys me. Because of the incompatibility of PL2303 drvier,the connection just didn’t work out. Fortunately, I have fou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Getting Started with WRTNode on Windows 8.1">
+<meta property="og:url" content="http://yoursite.com/2016/03/05/init-of-wrtnode/index.html">
+<meta property="og:site_name" content="Sredeption">
+<meta property="og:description" content="Connecting USB-to-Serial Comm PortGetting through the serial port on windows 8.1 annoys me. Because of the incompatibility of PL2303 drvier,the connection just didn’t work out. Fortunately, I have fou">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/500px-Ttl1.png">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/500px-Ttl2.png">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/junction.png">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/500px-Ttl9.png">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/500px-Ttl10.png">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/control_panel.png">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/devices.png">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/right_click.png">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/device_setting.png">
+<meta property="og:image" content="http://yoursite.com/images/init-of-wrtnode/putty.png">
+<meta property="og:updated_time" content="2016-03-06T12:24:50.365Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Getting Started with WRTNode on Windows 8.1">
+<meta name="twitter:description" content="Connecting USB-to-Serial Comm PortGetting through the serial port on windows 8.1 annoys me. Because of the incompatibility of PL2303 drvier,the connection just didn’t work out. Fortunately, I have fou">
+<meta name="twitter:image" content="http://yoursite.com/images/init-of-wrtnode/500px-Ttl1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Sredeption" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sredeption</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">In me the tiger sniffs the rose</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-init-of-wrtnode" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/05/init-of-wrtnode/" class="article-date">
+  <time datetime="2016-03-06T09:51:19.000Z" itemprop="datePublished">2016-03-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Embedded-System/">Embedded System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Getting Started with WRTNode on Windows 8.1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Connecting-USB-to-Serial-Comm-Port"><a href="#Connecting-USB-to-Serial-Comm-Port" class="headerlink" title="Connecting USB-to-Serial Comm Port"></a>Connecting USB-to-Serial Comm Port</h2><p>Getting through the serial port on <code>windows 8.1</code> annoys me. Because of the incompatibility of PL2303 drvier,<br>the connection just didn’t work out. Fortunately, I have found a old version driver that could satisfy<br>the requirement.</p>
+<h3 id="Junction-Circuit"><a href="#Junction-Circuit" class="headerlink" title="Junction Circuit"></a>Junction Circuit</h3><p>Let’s see the WRTNode PIN, and find out the correspondance between WRTNode pin and USB port.<br><img src="/images/init-of-wrtnode/500px-Ttl1.png" style="width: 700px;"><br>Now, what we need to do is connect the wires according to the colors.<br><img src="/images/init-of-wrtnode/500px-Ttl2.png" style="width: 700px;"><br>Don’t forget the power, USB wire connecting to the laptop is ok.<br><img src="/images/init-of-wrtnode/junction.png" style="width: 700px;"></p>
+<h3 id="Disable-Automatic-Update-of-Driver"><a href="#Disable-Automatic-Update-of-Driver" class="headerlink" title="Disable Automatic Update of Driver"></a>Disable Automatic Update of Driver</h3><p>Please check devices manager, if the icon of driver carry with a exclamation mark like image below, your<br>driver installation failed and you must finish the <code>Disable Automatic Update of Driver</code> and <code>Install the
+Driver</code> sections, otherwise, your driver is in good condition.<br><img src="/images/init-of-wrtnode/500px-Ttl9.png" style="width: 700px;"><br>Uninstall this driver.<br><img src="/images/init-of-wrtnode/500px-Ttl10.png" style="width: 700px;"><br>Next, you must diable the auomatic update of driver.<br><img src="/images/init-of-wrtnode/control_panel.png" style="width: 300px;"><br>Open the <code>Control Panel</code>.<br><img src="/images/init-of-wrtnode/devices.png" style="width: 300px;"><br>Click the <code>Check the Devices and Printer</code>.<br><img src="/images/init-of-wrtnode/right_click.png" style="width: 500px;"><br>Right click the icon with your <code>computer name</code>.<br><img src="/images/init-of-wrtnode/device_setting.png" style="width: 500px;"><br>Finally, click the selection like the image abve.</p>
+<h3 id="Install-the-Driver"><a href="#Install-the-Driver" class="headerlink" title="Install the Driver"></a>Install the Driver</h3><p>I’ve found the <a href="/download/PL2303_Prolific_DriverInstaller_v110.exe">PL2303 Prolific Driver Installer v1.10</a>. Download and install it.</p>
+<h2 id="Connect-with-Putty"><a href="#Connect-with-Putty" class="headerlink" title="Connect with Putty"></a>Connect with Putty</h2><p>After we have handled the driver, we could get it throungh with <code>Putty</code>.<br><img src="/images/init-of-wrtnode/putty.png" style="width: 500px;"><br>Open <code>Putty</code> configuration and set the serial line to your <code>COMM port</code> and <code>baudrate</code> to <code>115200</code>. Now, click <code>open</code>!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/05/init-of-wrtnode/" data-id="cilivyo8d0000p4cjzqc9gvvo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WRTNode/">WRTNode</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/03/07/spring-on-intelliJ/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Getting Started with Spring on IntelliJ 15
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Embedded-System/">Embedded System</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WRTNode/">WRTNode</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/WRTNode/" style="font-size: 10px;">WRTNode</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/07/spring-on-intelliJ/">Getting Started with Spring on IntelliJ 15</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/05/init-of-wrtnode/">Getting Started with WRTNode on Windows 8.1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Sea Hai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
