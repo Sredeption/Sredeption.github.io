@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Stuff in ARM Instruction | Sredeption</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This article would study ARM instruction set and how special instruction works and how to implement the function call. 
+Thumb VS ARMIn this section, I will compare ARM instructions and Thumb instructi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stuff in ARM Instruction">
+<meta property="og:url" content="http://yoursite.com/2016/03/31/arm-inst/index.html">
+<meta property="og:site_name" content="Sredeption">
+<meta property="og:description" content="This article would study ARM instruction set and how special instruction works and how to implement the function call. 
+Thumb VS ARMIn this section, I will compare ARM instructions and Thumb instructi">
+<meta property="og:updated_time" content="2016-04-01T12:07:31.736Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Stuff in ARM Instruction">
+<meta name="twitter:description" content="This article would study ARM instruction set and how special instruction works and how to implement the function call. 
+Thumb VS ARMIn this section, I will compare ARM instructions and Thumb instructi">
+  
+    <link rel="alternate" href="/atom.xml" title="Sredeption" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sredeption</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Rise and rise again until lambs become lions</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-arm-inst" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/31/arm-inst/" class="article-date">
+  <time datetime="2016-04-01T10:28:16.000Z" itemprop="datePublished">2016-03-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Embedded-System/">Embedded System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Stuff in ARM Instruction
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This article would study ARM instruction set and how special instruction works and how to implement the function call. </p>
+<h2 id="Thumb-VS-ARM"><a href="#Thumb-VS-ARM" class="headerlink" title="Thumb VS ARM"></a>Thumb VS ARM</h2><p>In this section, I will compare ARM instructions and Thumb instructions. First of all, I will present the code analysed.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; <span class="number">10</span>; i++);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And I utilized the cross-compile tools in <code>Ubuntu</code> to compile the code.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arm-linux-gnueabi-gcc test.c -o test.a</span><br><span class="line">arm-linux-gnueabi-gcc test.c -mthumb -o test.t</span><br></pre></td></tr></table></figure></p>
+<p>Secondly, use the <code>objdump</code> tool in cross-compile kit to inspect the assemble code.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arm-linux-gnueabi-objdump -d test.a</span><br><span class="line">arm-linux-gnueabi-objdump -d test.t</span><br></pre></td></tr></table></figure></p>
+<h3 id="ARM-code"><a href="#ARM-code" class="headerlink" title="ARM code"></a>ARM code</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">0000840c &lt;main&gt;:</span><br><span class="line">    840c:	e52db004 	push	&#123;fp&#125;		; (str fp, [sp, #-4]!)</span><br><span class="line">    8410:	e28db000 	add	fp, sp, #0</span><br><span class="line">    8414:	e24dd00c 	sub	sp, sp, #12</span><br><span class="line">    8418:	e3a03000 	mov	r3, #0</span><br><span class="line">    841c:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">    8420:	ea000002 	b	8430 &lt;main+0x24&gt;</span><br><span class="line">    8424:	e51b3008 	ldr	r3, [fp, #-8]</span><br><span class="line">    8428:	e2833001 	add	r3, r3, #1</span><br><span class="line">    842c:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">    8430:	e51b3008 	ldr	r3, [fp, #-8]</span><br><span class="line">    8434:	e3530009 	cmp	r3, #9</span><br><span class="line">    8438:	dafffff9 	ble	8424 &lt;main+0x18&gt;</span><br><span class="line">    843c:	e3a03000 	mov	r3, #0</span><br><span class="line">    8440:	e1a00003 	mov	r0, r3</span><br><span class="line">    8444:	e28bd000 	add	sp, fp, #0</span><br><span class="line">    8448:	e8bd0800 	ldmfd	sp!, &#123;fp&#125;</span><br><span class="line">    844c:	e12fff1e 	bx	lr</span><br></pre></td></tr></table></figure>
+<p>As you can see, all instruction compose of 32 bits.</p>
+<h3 id="Thumb-code"><a href="#Thumb-code" class="headerlink" title="Thumb code"></a>Thumb code</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">0000840c &lt;main&gt;:</span><br><span class="line">    840c:	b580      	push	&#123;r7, lr&#125;</span><br><span class="line">    840e:	b082      	sub	sp, #8</span><br><span class="line">    8410:	af00      	add	r7, sp, #0</span><br><span class="line">    8412:	2300      	movs	r3, #0</span><br><span class="line">    8414:	607b      	str	r3, [r7, #4]</span><br><span class="line">    8416:	e002      	b.n	841e &lt;main+0x12&gt;</span><br><span class="line">    8418:	687b      	ldr	r3, [r7, #4]</span><br><span class="line">    841a:	3301      	adds	r3, #1</span><br><span class="line">    841c:	607b      	str	r3, [r7, #4]</span><br><span class="line">    841e:	687b      	ldr	r3, [r7, #4]</span><br><span class="line">    8420:	2b09      	cmp	r3, #9</span><br><span class="line">    8422:	ddf9      	ble.n	8418 &lt;main+0xc&gt;</span><br><span class="line">    8424:	2300      	movs	r3, #0</span><br><span class="line">    8426:	1c18      	adds	r0, r3, #0</span><br><span class="line">    8428:	46bd      	mov	sp, r7</span><br><span class="line">    842a:	b002      	add	sp, #8</span><br><span class="line">    842c:	bd80      	pop	&#123;r7, pc&#125;</span><br><span class="line">    842e:	46c0      	nop			; (mov r8, r8)</span><br></pre></td></tr></table></figure>
+<p>The instruction consist of 16 bits as our wish. Compare with ARM instructions, this code is only half length. But the number of instructions is similar. That means similar execution time but much shorter program length.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-rwxrwxr-x 1 sea sea 8346 Mar 31 07:08 test.a</span><br><span class="line">-rwxrwxr-x 1 sea sea 8349 Mar 31 07:08 test.t</span><br></pre></td></tr></table></figure></p>
+<p>However, the Thumb code executable is bit longer. Of course, the main part of a executable is other code which is prepared for operating system, that is ARM instructions.</p>
+<h2 id="Condition-Instruction"><a href="#Condition-Instruction" class="headerlink" title="Condition Instruction"></a>Condition Instruction</h2><p>In this section I will present how to construct the condition execution instructions. Because the compiler would generate normal instruction as a default approach, the optimization option must be galvanized. Of course, the target code must be demonstrated at first.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="keyword">if</span> (a&gt;b)</span><br><span class="line">        a++;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        b++;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>, a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And the compile script.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arm-linux-gnueabi-gcc test.c -o test.a -O</span><br></pre></td></tr></table></figure></p>
+<p>Now we could see the condition instructions.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">0000849c &lt;main&gt;:</span><br><span class="line">    849c:	e52de004 	push	&#123;lr&#125;		; (str lr, [sp, #-4]!)</span><br><span class="line">    84a0:	e24dd00c 	sub	sp, sp, #12</span><br><span class="line">    84a4:	e59f0040 	ldr	r0, [pc, #64]	; 84ec &lt;main+0x50&gt;</span><br><span class="line">    84a8:	e1a0100d 	mov	r1, sp</span><br><span class="line">    84ac:	e28d2004 	add	r2, sp, #4</span><br><span class="line">    84b0:	ebffffa6 	bl	8350 &lt;_init+0x44&gt;</span><br><span class="line">    84b4:	e59d2000 	ldr	r2, [sp]</span><br><span class="line">    84b8:	e59d3004 	ldr	r3, [sp, #4]</span><br><span class="line">    84bc:	e1520003 	cmp	r2, r3</span><br><span class="line">    84c0:	c2822001 	addgt	r2, r2, #1</span><br><span class="line">    84c4:	c58d2000 	strgt	r2, [sp]</span><br><span class="line">    84c8:	d2833001 	addle	r3, r3, #1</span><br><span class="line">    84cc:	d58d3004 	strle	r3, [sp, #4]</span><br><span class="line">    84d0:	e3a00001 	mov	r0, #1</span><br><span class="line">    84d4:	e59f1010 	ldr	r1, [pc, #16]	; 84ec &lt;main+0x50&gt;</span><br><span class="line">    84d8:	e59d2000 	ldr	r2, [sp]</span><br><span class="line">    84dc:	e59d3004 	ldr	r3, [sp, #4]</span><br><span class="line">    84e0:	ebffff97 	bl	8344 &lt;_init+0x38&gt;</span><br><span class="line">    84e4:	e28dd00c 	add	sp, sp, #12</span><br><span class="line">    84e8:	e8bd8000 	ldmfd	sp!, &#123;pc&#125;</span><br><span class="line">    84ec:	00008564 	.word	0x00008564</span><br></pre></td></tr></table></figure></p>
+<h2 id="Register-Shift"><a href="#Register-Shift" class="headerlink" title="Register Shift"></a>Register Shift</h2><p>Let’s construct scenario that would generate register shift instruction. Target code is here.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;a, &amp;b);</span><br><span class="line">    a = a + b &lt;&lt; <span class="number">4</span>;</span><br><span class="line">    a = a + b &lt;&lt; <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>, a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Of course, in order to avoid the compiler generate normal instruction we must use the optimization option. However, the optimization would eliminate every code because of the unuse of variable. Thus, input and output is introduced.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arm-linux-gnueabi-gcc test.c -o test.a -O</span><br></pre></td></tr></table></figure></p>
+<p>Dump it, check the machine code.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">0000849c &lt;main&gt;:</span><br><span class="line">    849c:	e92d4010 	push	&#123;r4, lr&#125;</span><br><span class="line">    84a0:	e24dd008 	sub	sp, sp, #8</span><br><span class="line">    84a4:	e59f4038 	ldr	r4, [pc, #56]	; 84e4 &lt;main+0x48&gt;</span><br><span class="line">    84a8:	e1a00004 	mov	r0, r4</span><br><span class="line">    84ac:	e1a0100d 	mov	r1, sp</span><br><span class="line">    84b0:	e28d2004 	add	r2, sp, #4</span><br><span class="line">    84b4:	ebffffa5 	bl	8350 &lt;_init+0x44&gt;</span><br><span class="line">    84b8:	e59d3004 	ldr	r3, [sp, #4]</span><br><span class="line">    84bc:	e59d2000 	ldr	r2, [sp]</span><br><span class="line">    84c0:	e0832002 	add	r2, r3, r2</span><br><span class="line">    84c4:	e0832202 	add	r2, r3, r2, lsl #4</span><br><span class="line">    84c8:	e1a02202 	lsl	r2, r2, #4</span><br><span class="line">    84cc:	e58d2000 	str	r2, [sp]</span><br><span class="line">    84d0:	e3a00001 	mov	r0, #1</span><br><span class="line">    84d4:	e1a01004 	mov	r1, r4</span><br><span class="line">    84d8:	ebffff99 	bl	8344 &lt;_init+0x38&gt;</span><br><span class="line">    84dc:	e28dd008 	add	sp, sp, #8</span><br><span class="line">    84e0:	e8bd8010 	pop	&#123;r4, pc&#125;</span><br><span class="line">    84e4:	0000855c 	.word	0x0000855c</span><br></pre></td></tr></table></figure></p>
+<h2 id="Load-a-32-bits-number"><a href="#Load-a-32-bits-number" class="headerlink" title="Load a 32-bits number"></a>Load a 32-bits number</h2><p>Now, I will show how the assigment is implemented.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;a, &amp;b);</span><br><span class="line">    a=<span class="number">0x12312312</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>, a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Variable <code>int a</code> would be assigned by a 32-bits number. Compile it, and check the assemble language.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">00008494 &lt;main&gt;:</span><br><span class="line">    8494:	e92d4800 	push	&#123;fp, lr&#125;</span><br><span class="line">    8498:	e28db004 	add	fp, sp, #4</span><br><span class="line">    849c:	e24dd008 	sub	sp, sp, #8</span><br><span class="line">    84a0:	e24b200c 	sub	r2, fp, #12</span><br><span class="line">    84a4:	e24b3008 	sub	r3, fp, #8</span><br><span class="line">    84a8:	e59f0034 	ldr	r0, [pc, #52]	; 84e4 &lt;main+0x50&gt;</span><br><span class="line">    84ac:	e1a01002 	mov	r1, r2</span><br><span class="line">    84b0:	e1a02003 	mov	r2, r3</span><br><span class="line">    84b4:	ebffffa3 	bl	8348 &lt;_init+0x44&gt;</span><br><span class="line">    84b8:	e59f3028 	ldr	r3, [pc, #40]	; 84e8 &lt;main+0x54&gt;</span><br><span class="line">    84bc:	e50b300c 	str	r3, [fp, #-12]</span><br><span class="line">    84c0:	e51b200c 	ldr	r2, [fp, #-12]</span><br><span class="line">    84c4:	e51b3008 	ldr	r3, [fp, #-8]</span><br><span class="line">    84c8:	e59f0014 	ldr	r0, [pc, #20]	; 84e4 &lt;main+0x50&gt;</span><br><span class="line">    84cc:	e1a01002 	mov	r1, r2</span><br><span class="line">    84d0:	e1a02003 	mov	r2, r3</span><br><span class="line">    84d4:	ebffff92 	bl	8324 &lt;_init+0x20&gt;</span><br><span class="line">    84d8:	e1a00003 	mov	r0, r3</span><br><span class="line">    84dc:	e24bd004 	sub	sp, fp, #4</span><br><span class="line">    84e0:	e8bd8800 	pop	&#123;fp, pc&#125;</span><br><span class="line">    84e4:	00008560 	.word	0x00008560</span><br><span class="line">    84e8:	12312312 	.word	0x12312312</span><br></pre></td></tr></table></figure></p>
+<p>As you can see, the constant is stored in bottom of code. And the content in the memory would be load into register directly by using instruction <code>ldr</code>.</p>
+<h2 id="Function-Call"><a href="#Function-Call" class="headerlink" title="Function Call"></a>Function Call</h2><p>Function call is a important part in every program. So that, I will study the function call mechanism in this section.<br>Let’s present the target code as ususal.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">x</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;</span><br><span class="line">    a=<span class="number">0x440</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    b=<span class="number">0x220</span>;</span><br><span class="line">    b = b+<span class="number">1</span>;</span><br><span class="line">    x(b);</span><br><span class="line">    b = b+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> b=<span class="number">0x130</span>;</span><br><span class="line">    b = b+<span class="number">1</span>;</span><br><span class="line">    g(b, a);</span><br><span class="line">    b = b+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;a, &amp;b);</span><br><span class="line">    a=<span class="number">0x12312312</span>;</span><br><span class="line">    f(a);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>, a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Then, compile it and inspect the machine code.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">00008510 &lt;f&gt;:</span><br><span class="line">    8510:	e92d4800 	push	&#123;fp, lr&#125;</span><br><span class="line">    8514:	e28db004 	add	fp, sp, #4</span><br><span class="line">    8518:	e24dd010 	sub	sp, sp, #16</span><br><span class="line">    851c:	e50b0010 	str	r0, [fp, #-16]</span><br><span class="line">    8520:	e3a03e13 	mov	r3, #304	; 0x130</span><br><span class="line">    8524:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">    8528:	e51b3008 	ldr	r3, [fp, #-8]</span><br><span class="line">    852c:	e2833001 	add	r3, r3, #1</span><br><span class="line">    8530:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">    8534:	e51b0008 	ldr	r0, [fp, #-8]</span><br><span class="line">    8538:	e51b1010 	ldr	r1, [fp, #-16]</span><br><span class="line">    853c:	ebffffe1 	bl	84c8 &lt;g&gt;</span><br><span class="line">    8540:	e51b3008 	ldr	r3, [fp, #-8]</span><br><span class="line">    8544:	e2833001 	add	r3, r3, #1</span><br><span class="line">    8548:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">    854c:	e1a00003 	mov	r0, r3</span><br><span class="line">    8550:	e24bd004 	sub	sp, fp, #4</span><br><span class="line">    8554:	e8bd8800 	pop	&#123;fp, pc&#125;</span><br><span class="line">    </span><br><span class="line">00008558 &lt;main&gt;:</span><br><span class="line">    8558:	e92d4800 	push	&#123;fp, lr&#125;</span><br><span class="line">    855c:	e28db004 	add	fp, sp, #4</span><br><span class="line">    8560:	e24dd008 	sub	sp, sp, #8</span><br><span class="line">    8564:	e24b200c 	sub	r2, fp, #12</span><br><span class="line">    8568:	e24b3008 	sub	r3, fp, #8</span><br><span class="line">    856c:	e59f0040 	ldr	r0, [pc, #64]	; 85b4 &lt;main+0x5c&gt;</span><br><span class="line">    8570:	e1a01002 	mov	r1, r2</span><br><span class="line">    8574:	e1a02003 	mov	r2, r3</span><br><span class="line">    8578:	ebffff72 	bl	8348 &lt;_init+0x44&gt;</span><br><span class="line">    857c:	e59f3034 	ldr	r3, [pc, #52]	; 85b8 &lt;main+0x60&gt;</span><br><span class="line">    8580:	e50b300c 	str	r3, [fp, #-12]</span><br><span class="line">    8584:	e51b300c 	ldr	r3, [fp, #-12]</span><br><span class="line">    8588:	e1a00003 	mov	r0, r3</span><br><span class="line">    858c:	ebffffdf 	bl	8510 &lt;f&gt;</span><br><span class="line">    8590:	e51b200c 	ldr	r2, [fp, #-12]</span><br><span class="line">    8594:	e51b3008 	ldr	r3, [fp, #-8]</span><br><span class="line">    8598:	e59f0014 	ldr	r0, [pc, #20]	; 85b4 &lt;main+0x5c&gt;</span><br><span class="line">    859c:	e1a01002 	mov	r1, r2</span><br><span class="line">    85a0:	e1a02003 	mov	r2, r3</span><br><span class="line">    85a4:	ebffff5e 	bl	8324 &lt;_init+0x20&gt;</span><br><span class="line">    85a8:	e1a00003 	mov	r0, r3</span><br><span class="line">    85ac:	e24bd004 	sub	sp, fp, #4</span><br><span class="line">    85b0:	e8bd8800 	pop	&#123;fp, pc&#125;</span><br><span class="line">    85b4:	00008634 	.word	0x00008634</span><br><span class="line">    85b8:	12312312 	.word	0x12312312</span><br><span class="line"></span><br><span class="line">00008494 &lt;x&gt;:</span><br><span class="line">    8494:	e92d4800 	push	&#123;fp, lr&#125;</span><br><span class="line">    8498:	e28db004 	add	fp, sp, #4</span><br><span class="line">    849c:	e24dd010 	sub	sp, sp, #16</span><br><span class="line">    84a0:	e50b0010 	str	r0, [fp, #-16]</span><br><span class="line">    84a4:	e3a03d11 	mov	r3, #1088	; 0x440</span><br><span class="line">    84a8:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">    84ac:	e59f0010 	ldr	r0, [pc, #16]	; 84c4 &lt;x+0x30&gt;</span><br><span class="line">    84b0:	e51b1008 	ldr	r1, [fp, #-8]</span><br><span class="line">    84b4:	ebffff9a 	bl	8324 &lt;_init+0x20&gt;</span><br><span class="line">    84b8:	e1a00003 	mov	r0, r3</span><br><span class="line">    84bc:	e24bd004 	sub	sp, fp, #4</span><br><span class="line">    84c0:	e8bd8800 	pop	&#123;fp, pc&#125;</span><br><span class="line">    84c4:	00008630 	.word	0x00008630</span><br><span class="line"></span><br><span class="line">000084c8 &lt;g&gt;:</span><br><span class="line">    84c8:	e92d4800 	push	&#123;fp, lr&#125;</span><br><span class="line">    84cc:	e28db004 	add	fp, sp, #4</span><br><span class="line">    84d0:	e24dd010 	sub	sp, sp, #16</span><br><span class="line">    84d4:	e50b0010 	str	r0, [fp, #-16]</span><br><span class="line">    84d8:	e50b1014 	str	r1, [fp, #-20]</span><br><span class="line">    84dc:	e3a03e22 	mov	r3, #544	; 0x220</span><br><span class="line">    84e0:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">    84e4:	e51b3008 	ldr	r3, [fp, #-8]</span><br><span class="line">    84e8:	e2833001 	add	r3, r3, #1</span><br><span class="line">    84ec:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">    84f0:	e51b0008 	ldr	r0, [fp, #-8]</span><br><span class="line">    84f4:	ebffffe6 	bl	8494 &lt;x&gt;</span><br><span class="line">    84f8:	e51b3008 	ldr	r3, [fp, #-8]</span><br><span class="line">    84fc:	e2833001 	add	r3, r3, #1</span><br><span class="line">    8500:	e50b3008 	str	r3, [fp, #-8]</span><br><span class="line">    8504:	e1a00003 	mov	r0, r3</span><br><span class="line">    8508:	e24bd004 	sub	sp, fp, #4</span><br><span class="line">    850c:	e8bd8800 	pop	&#123;fp, pc&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Return-Address"><a href="#Return-Address" class="headerlink" title="Return Address"></a>Return Address</h3><p>The return address would be stored in register <code>lr</code> when the instruction <code>bl</code> is executed. And whenever the call is invoked, the return address would be pushed into stack.</p>
+<h3 id="Parameter-Passing"><a href="#Parameter-Passing" class="headerlink" title="Parameter Passing"></a>Parameter Passing</h3><p>The parameter is passed through register <code>R0</code> and <code>R1</code>.</p>
+<h3 id="Local-Variable"><a href="#Local-Variable" class="headerlink" title="Local Variable"></a>Local Variable</h3><p>The variable would be allocated when the function call is made. First of all, the local stack space woudl be allocated by frame pointer. After the return address is pushed to the stack, the local variable would stored sequentially.</p>
+<h3 id="Reigster-Save"><a href="#Reigster-Save" class="headerlink" title="Reigster Save"></a>Reigster Save</h3><p>R0-R3 is saved by caller but the register above R4 is saved by callee.</p>
+<h2 id="BIC"><a href="#BIC" class="headerlink" title="BIC"></a>BIC</h2><p>In order to obtin the BIC instruction, we must do some operation that is similiar to the logic of this instruction.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b, c, d;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %d %d %d"</span>, &amp;a, &amp;b, &amp;c, &amp;d);</span><br><span class="line">    a = b &amp; (~c);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d %d %d"</span>, a, b, c, d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And, the optimazation option is necessary.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arm-linux-gnueabi-gcc test.c -o test.a -O</span><br></pre></td></tr></table></figure></p>
+<p>Then, we could find out the BIC instruction.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">0000849c &lt;main&gt;:</span><br><span class="line">    849c:	e92d4010 	push	&#123;r4, lr&#125;</span><br><span class="line">    84a0:	e24dd018 	sub	sp, sp, #24</span><br><span class="line">    84a4:	e59f4048 	ldr	r4, [pc, #72]	; 84f4 &lt;main+0x58&gt;</span><br><span class="line">    84a8:	e28d3014 	add	r3, sp, #20</span><br><span class="line">    84ac:	e58d3000 	str	r3, [sp]</span><br><span class="line">    84b0:	e1a00004 	mov	r0, r4</span><br><span class="line">    84b4:	e28d1008 	add	r1, sp, #8</span><br><span class="line">    84b8:	e28d200c 	add	r2, sp, #12</span><br><span class="line">    84bc:	e28d3010 	add	r3, sp, #16</span><br><span class="line">    84c0:	ebffffa2 	bl	8350 &lt;_init+0x44&gt;</span><br><span class="line">    84c4:	e59d1010 	ldr	r1, [sp, #16]</span><br><span class="line">    84c8:	e59d300c 	ldr	r3, [sp, #12]</span><br><span class="line">    84cc:	e1c32001 	bic	r2, r3, r1</span><br><span class="line">    84d0:	e58d2008 	str	r2, [sp, #8]</span><br><span class="line">    84d4:	e58d1000 	str	r1, [sp]</span><br><span class="line">    84d8:	e59d1014 	ldr	r1, [sp, #20]</span><br><span class="line">    84dc:	e58d1004 	str	r1, [sp, #4]</span><br><span class="line">    84e0:	e3a00001 	mov	r0, #1</span><br><span class="line">    84e4:	e1a01004 	mov	r1, r4</span><br><span class="line">    84e8:	ebffff95 	bl	8344 &lt;_init+0x38&gt;</span><br><span class="line">    84ec:	e28dd018 	add	sp, sp, #24</span><br><span class="line">    84f0:	e8bd8010 	pop	&#123;r4, pc&#125;</span><br><span class="line">    84f4:	0000856c 	.word	0x0000856c</span><br></pre></td></tr></table></figure></p>
+<h2 id="Inline-Assembly"><a href="#Inline-Assembly" class="headerlink" title="Inline Assembly"></a>Inline Assembly</h2><p>In this section, I write a pure ARM assembly function. There is one thing deserved to be mentioned, which is we must store and load the return address, so that the function would be executed properly.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">asm</span>(</span><br><span class="line">    <span class="string">"test:"</span></span><br><span class="line">    <span class="string">"push   &#123;r3, r4, fp, lr&#125;\n"</span></span><br><span class="line">    <span class="string">"add    r3, r0, r1\n"</span></span><br><span class="line">    <span class="string">"mov    r4, #0\n"</span></span><br><span class="line">    <span class="string">"strb   r4, [r3]\n"</span></span><br><span class="line">    <span class="string">"bl     puts\n"</span></span><br><span class="line">    <span class="string">"pop    &#123;r3, r4, fp, pc&#125;\n"</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">10</span>]=<span class="string">"abcdefghij"</span>;</span><br><span class="line">    test(s, <span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And I invoke the function <code>puts</code> to print the string.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/31/arm-inst/" data-id="cimhkx1z90000jocjqy6fxn81" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM/">ARM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/09/init-raspberry/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Getting started with RaspberryPi</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Embedded-System/">Embedded System</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARM/">ARM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPA/">JPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WRTNode/">WRTNode</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RaspberryPi/" style="font-size: 10px;">RaspberryPi</a> <a href="/tags/Spring/" style="font-size: 20px;">Spring</a> <a href="/tags/WRTNode/" style="font-size: 10px;">WRTNode</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/31/arm-inst/">Stuff in ARM Instruction</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/09/init-raspberry/">Getting started with RaspberryPi</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/08/access-data-jpa/">Access data with JPA in Spring</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/07/spring-on-intelliJ/">Getting Started with Spring on IntelliJ 15</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/05/init-of-wrtnode/">Getting Started with WRTNode on Windows 8.1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Sea Hai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
