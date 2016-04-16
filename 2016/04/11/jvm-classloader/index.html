@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016 | Sredeption</title>
+  <title>Java ClassLoader | Sredeption</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="system, vision, graphic, network">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sredeption">
-<meta property="og:url" content="http://yoursite.com/archives/2016/index.html">
+  <meta name="description" content="Class Loading Mechanism:JVM would load the .class file into memory, and then validate, parse, initilized and finally form the Java Type. And type loading and linking is done in runtime.Class Life Cycl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java ClassLoader">
+<meta property="og:url" content="http://yoursite.com/2016/04/11/jvm-classloader/index.html">
 <meta property="og:site_name" content="Sredeption">
-<meta property="og:description" content="system, vision, graphic, network">
+<meta property="og:description" content="Class Loading Mechanism:JVM would load the .class file into memory, and then validate, parse, initilized and finally form the Java Type. And type loading and linking is done in runtime.Class Life Cycl">
+<meta property="og:updated_time" content="2016-04-12T08:22:56.719Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sredeption">
-<meta name="twitter:description" content="system, vision, graphic, network">
+<meta name="twitter:title" content="Java ClassLoader">
+<meta name="twitter:description" content="Class Loading Mechanism:JVM would load the .class file into memory, and then validate, parse, initilized and finally form the Java Type. And type loading and linking is done in runtime.Class Life Cycl">
   
     <link rel="alternate" href="/atom.xml" title="Sredeption" type="application/atom+xml">
   
@@ -66,120 +67,64 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/04/11/jvm-classloader/" class="archive-article-date">
-  <time datetime="2016-04-12T06:09:14.000Z" itemprop="datePublished">Apr 11</time>
+        <section id="main"><article id="post-jvm-classloader" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/11/jvm-classloader/" class="article-date">
+  <time datetime="2016-04-12T06:09:14.000Z" itemprop="datePublished">2016-04-11</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/04/11/jvm-classloader/">Java ClassLoader</a>
+    <h1 class="article-title" itemprop="name">
+      Java ClassLoader
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/04/11/design-pattern/" class="archive-article-date">
-  <time datetime="2016-04-12T02:56:24.000Z" itemprop="datePublished">Apr 11</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/04/11/design-pattern/">Design Pattern in Java</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/04/08/init-stm32/" class="archive-article-date">
-  <time datetime="2016-04-09T11:46:32.000Z" itemprop="datePublished">Apr 8</time>
-</a>
+        <p><strong>Class Loading Mechanism</strong>:<br>JVM would load the <code>.class</code> file into memory, and then validate, parse, initilized and finally form the <code>Java Type</code>. And type loading and linking is done in runtime.<br><strong>Class Life Cycle</strong><br>Loading<br>Verification<br>Preparation<br>Resolution<br>Initialization<br>Using<br>Unloading</p>
+<h2 id="Loading"><a href="#Loading" class="headerlink" title="Loading"></a>Loading</h2><ol>
+<li>Obtain a binary byte stream by fully qualified name.</li>
+<li>Convert the static structure represented by this binary byte stream to the runtime data structure in method area.</li>
+<li>Generate a <code>Class</code> object in heap.</li>
+</ol>
+<h2 id="Verification"><a href="#Verification" class="headerlink" title="Verification"></a>Verification</h2>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/04/08/init-stm32/">Getting Started with STM32 in Windows</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/03/31/arm-inst/" class="archive-article-date">
-  <time datetime="2016-04-01T10:28:16.000Z" itemprop="datePublished">Mar 31</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/11/jvm-classloader/" data-id="cin2zw68i0009xccjlrnqe8df" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/31/arm-inst/">Stuff in ARM Instruction</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/03/09/init-raspberry/" class="archive-article-date">
-  <time datetime="2016-03-10T04:48:08.000Z" itemprop="datePublished">Mar 9</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/09/init-raspberry/">Getting started with RaspberryPi</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/11/design-pattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Design Pattern in Java</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2016/page/2/">2</a><a class="extend next" rel="next" href="/archives/2016/page/2/">__('next') &raquo;</a>
-  </nav>
 </section>
         
           <aside id="sidebar">

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Getting Started with STM32 in Windows | Sredeption</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Connect the CircuitIn the very first of this experiment, we have to connect the circuit. There is three parts waited to be connect. First, connect the ST-LINK. Second, conect the CP2012. And finally,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Getting Started with STM32 in Windows">
+<meta property="og:url" content="http://yoursite.com/2016/04/08/init-stm32/index.html">
+<meta property="og:site_name" content="Sredeption">
+<meta property="og:description" content="Connect the CircuitIn the very first of this experiment, we have to connect the circuit. There is three parts waited to be connect. First, connect the ST-LINK. Second, conect the CP2012. And finally,">
+<meta property="og:image" content="http://yoursite.com/images/init-stm32/connection.png">
+<meta property="og:image" content="http://yoursite.com/images/init-stm32/comment.png">
+<meta property="og:image" content="http://yoursite.com/images/init-stm32/program.png">
+<meta property="og:image" content="http://yoursite.com/images/init-stm32/result_1.png">
+<meta property="og:image" content="http://yoursite.com/images/init-stm32/result_2.png">
+<meta property="og:updated_time" content="2016-04-09T13:31:06.098Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Getting Started with STM32 in Windows">
+<meta name="twitter:description" content="Connect the CircuitIn the very first of this experiment, we have to connect the circuit. There is three parts waited to be connect. First, connect the ST-LINK. Second, conect the CP2012. And finally,">
+<meta name="twitter:image" content="http://yoursite.com/images/init-stm32/connection.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Sredeption" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sredeption</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Rise and rise again until lambs become lions</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-init-stm32" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/08/init-stm32/" class="article-date">
+  <time datetime="2016-04-09T11:46:32.000Z" itemprop="datePublished">2016-04-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Embedded-System/">Embedded System</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Getting Started with STM32 in Windows
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Connect-the-Circuit"><a href="#Connect-the-Circuit" class="headerlink" title="Connect the Circuit"></a>Connect the Circuit</h2><p>In the very first of this experiment, we have to connect the circuit. There is three parts waited to be connect. First, connect the <code>ST-LINK</code>. Second, conect the <code>CP2012</code>. And finally, connect the button to pins on <code>STM32</code>.</p>
+<h3 id="Connect-ST-LINK"><a href="#Connect-ST-LINK" class="headerlink" title="Connect ST-LINK"></a>Connect ST-LINK</h3><p>In order to get through the <code>ST-LINK</code>, two steps must be done. The very first step is connect the pins with Dupont Lines. Here is the corresponding pins.</p>
+<table>
+<thead>
+<tr>
+<th>ST-LINK</th>
+<th style="text-align:right">STM32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SWCLK</td>
+<td style="text-align:right">DCLK</td>
+</tr>
+<tr>
+<td>SWDIO</td>
+<td style="text-align:right">DIO</td>
+</tr>
+<tr>
+<td>GND</td>
+<td style="text-align:right">GND</td>
+</tr>
+<tr>
+<td>3.3V</td>
+<td style="text-align:right">3.3V</td>
+</tr>
+</tbody>
+</table>
+<p>Next, the driver must be installed.</p>
+<h3 id="Connect-CP2012"><a href="#Connect-CP2012" class="headerlink" title="Connect CP2012"></a>Connect CP2012</h3><p>Similarly, I will give the corresponding pins talbe.</p>
+<table>
+<thead>
+<tr>
+<th>CP2012</th>
+<th style="text-align:right">STM32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.3v</td>
+<td style="text-align:right">3.3v</td>
+</tr>
+<tr>
+<td>GND</td>
+<td style="text-align:right">GND</td>
+</tr>
+<tr>
+<td>TXD</td>
+<td style="text-align:right">A10</td>
+</tr>
+<tr>
+<td>RXD</td>
+<td style="text-align:right">A9</td>
+</tr>
+</tbody>
+</table>
+<p>And, of course, make sure driver running correctly.</p>
+<h3 id="Connect-Button"><a href="#Connect-Button" class="headerlink" title="Connect Button"></a>Connect Button</h3><p>There are two four ports in one button. In order to input separtely, only two ports could be used. One is connected to ‘GND’ and one is connected to ‘PA11’ or ‘PA12’.<br><img src="/images/init-stm32/connection.png" style="width: 500px;"><br>Here is the circut diagram.</p>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>In my opinion, there is some configuration need to be mentioned.</p>
+<h3 id="Comment-Removal"><a href="#Comment-Removal" class="headerlink" title="Comment Removal"></a>Comment Removal</h3><p>The some comment mark in <code>stm32f1xx_hal_conf.h</code> must be remove, so that the compiler would link them into executable.<br><img src="/images/init-stm32/comment.png" style="width: 500px;"><br>Especially, following two <code>#define</code> must be released. Because we must use <code>UART</code>, <code>TIM</code> and <code>GPIO</code>.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_GPIO_MODULE_ENABLED</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_TIM_MODULE_ENABLED</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HAL_UART_MODULE_ENABLED</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Programming-Algorithm"><a href="#Programming-Algorithm" class="headerlink" title="Programming Algorithm"></a>Programming Algorithm</h3><p>The <code>Programming Algorithm</code> must be added, otherwise, we couldn’t program. You could find this dialog in given documentation.<br><img src="/images/init-stm32/program.png" style="width: 500px;"></p>
+<h2 id="Initialize-UART"><a href="#Initialize-UART" class="headerlink" title="Initialize UART"></a>Initialize UART</h2><p>One handler must be defined, so that we could initialize with it.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UART_HandleTypeDef UartHandler;</span><br></pre></td></tr></table></figure></p>
+<p>This variable could be global or local. Next, set parameters and initialize.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">UartHandler.Instance        = USART1;</span><br><span class="line">UartHandler.Init.BaudRate   = <span class="number">9600</span>;</span><br><span class="line">UartHandler.Init.WordLength = UART_WORDLENGTH_8B;</span><br><span class="line">UartHandler.Init.StopBits   = UART_STOPBITS_1;</span><br><span class="line">UartHandler.Init.Parity     = UART_PARITY_NONE;</span><br><span class="line">UartHandler.Init.HwFlowCtl  = UART_HWCONTROL_NONE;</span><br><span class="line">UartHandler.Init.Mode       = UART_MODE_TX_RX;</span><br><span class="line">HAL_UART_Init(&amp;UartHandler);</span><br></pre></td></tr></table></figure></p>
+<h2 id="Rewrite-Output"><a href="#Rewrite-Output" class="headerlink" title="Rewrite Output"></a>Rewrite Output</h2><p>Our intent is use <code>printf</code> function write the data to the serial port. So, two function need to be rewritten, which are <code>int __io_putchar(uint8_t ch)</code> and <code>int fputc(int ch, FILE *f)</code> respectively.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __io_putchar(<span class="keyword">uint8_t</span> ch)&#123;</span><br><span class="line">	HAL_UART_Transmit(&amp;UartHandler, &amp;ch, <span class="number">1</span>, <span class="number">100</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputc</span><span class="params">(<span class="keyword">int</span> ch, FILE *f)</span></span>&#123;</span><br><span class="line">	<span class="keyword">uint8_t</span> chr =ch;</span><br><span class="line">	HAL_UART_Transmit(&amp;UartHandler, &amp;chr, <span class="number">1</span>, <span class="number">100</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Now the output would be directed to the serial port.</p>
+<h2 id="GPIO-Initilization"><a href="#GPIO-Initilization" class="headerlink" title="GPIO Initilization"></a>GPIO Initilization</h2><p>Two pins must be initilized, <code>PA11</code> and <code>PA12</code>.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">GPIO_InitTypeDef GPIO_InitStruct;</span><br><span class="line">	</span><br><span class="line">__GPIOA_CLK_ENABLE();</span><br><span class="line"></span><br><span class="line">GPIO_InitStruct.Pin = GPIO_PIN_11;</span><br><span class="line">GPIO_InitStruct.Mode = GPIO_MODE_INPUT;</span><br><span class="line">GPIO_InitStruct.Pull = GPIO_PULLUP;</span><br><span class="line">GPIO_InitStruct.Speed = GPIO_SPEED_LOW;</span><br><span class="line">HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</span><br><span class="line"></span><br><span class="line">GPIO_InitStruct.Pin = GPIO_PIN_12;</span><br><span class="line">GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;</span><br><span class="line">GPIO_InitStruct.Pull = GPIO_PULLUP;</span><br><span class="line">GPIO_InitStruct.Speed = GPIO_SPEED_LOW;</span><br><span class="line">HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</span><br><span class="line"></span><br><span class="line">HAL_NVIC_SetPriority(EXTI15_10_IRQn,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);</span><br></pre></td></tr></table></figure></p>
+<p>The function <code>HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct)</code> would call <code>void HAL_UART_MspInit(UART_HandleTypeDef *huart)</code> in <code>stm32f1xx_hal_msp.c</code>. Thus we must fill the code.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HAL_UART_MspInit</span><span class="params">(UART_HandleTypeDef *huart)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	__HAL_RCC_GPIOA_CLK_ENABLE();</span><br><span class="line">	__HAL_RCC_USART1_CLK_ENABLE();</span><br><span class="line">	</span><br><span class="line">	GPIO_InitTypeDef GPIO_InitStruct;</span><br><span class="line">	GPIO_InitStruct.Pin = GPIO_PIN_9;</span><br><span class="line">	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;</span><br><span class="line">	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;</span><br><span class="line">	HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</span><br><span class="line">	GPIO_InitStruct.Pin = GPIO_PIN_10;</span><br><span class="line">	HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HAL_UART_MspDeInit</span><span class="params">(UART_HandleTypeDef *huart)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	__HAL_RCC_USART1_FORCE_RESET();</span><br><span class="line">	__HAL_RCC_USART1_RELEASE_RESET();</span><br><span class="line">	HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9);</span><br><span class="line">	HAL_GPIO_DeInit(GPIOA, GPIO_PIN_10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>If <code>__GPIOA_CLK_ENABLE()</code> is not called, the input of <code>PA11</code> would be strange, like a clock. Thus you shouldn’t forget it. And  <code>HAL_NVIC_SetPriority(EXTI15_10_IRQn,0,0)</code> and <code>HAL_NVIC_EnableIRQ(EXTI15_10_IRQn)</code> would set the interrupt for <code>PA12</code>. Now, we need a callback function to handle the push.<br>Add a function in <code>stm32f1xx_it.c</code> to handle the interrupt.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EXTI15_10_IRQHandler</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_12);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>This function would call <code>void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)</code>, so it’s necessary to implement it in <code>main.c</code>.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HAL_GPIO_EXTI_Callback</span><span class="params">(uint16_t GPIO_Pin)</span></span>&#123;</span><br><span class="line">	counter++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>According to the requirement, we need to increase <code>counter</code>. So far, we’ve handle the input of <code>PA12</code>. Next, we would handle the <code>PA11</code> in main loop. Add following code snipet in <code>int main(void)</code><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_11))==<span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Pressed\r\n"</span>);</span><br><span class="line">    mode=!mode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Change the mode, of course, and remember that, this condition statement must be enclosed by a loop.</p>
+<h2 id="Timer-Initialization"><a href="#Timer-Initialization" class="headerlink" title="Timer Initialization"></a>Timer Initialization</h2><p>Follwing code snippet is to set the serial port parameters. However, I don’t the specific meaning of this statements.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">TIM_ClockConfigTypeDef sClockSourceConfig;</span><br><span class="line">TIM_MasterConfigTypeDef sMasterConfig;</span><br><span class="line"></span><br><span class="line">TIM_Handler.Instance = TIM3;</span><br><span class="line">TIM_Handler.Init.Prescaler = <span class="number">48000</span>;</span><br><span class="line">TIM_Handler.Init.CounterMode = TIM_COUNTERMODE_UP;</span><br><span class="line">TIM_Handler.Init.Period = <span class="number">199</span>;</span><br><span class="line">TIM_Handler.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;</span><br><span class="line">HAL_TIM_Base_Init(&amp;TIM_Handler);</span><br><span class="line"></span><br><span class="line">sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;</span><br><span class="line">HAL_TIM_ConfigClockSource(&amp;TIM_Handler, &amp;sClockSourceConfig);</span><br><span class="line"></span><br><span class="line">sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;</span><br><span class="line">sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;</span><br><span class="line">HAL_TIMEx_MasterConfigSynchronization(&amp;TIM_Handler, &amp;sMasterConfig);</span><br></pre></td></tr></table></figure></p>
+<p>Then call this function<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HAL_TIM_Base_Start_IT(&amp;TIM_Handler);</span><br></pre></td></tr></table></figure></p>
+<p>And this function cooperate with other two function that we must implement in <code>stm32f1xx_hal_msp.c</code>.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HAL_TIM_Base_MspInit</span><span class="params">(TIM_HandleTypeDef* htim_base)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(htim_base-&gt;Instance==TIM3)</span><br><span class="line">  &#123;</span><br><span class="line">    __TIM3_CLK_ENABLE();</span><br><span class="line">    HAL_NVIC_SetPriority(TIM3_IRQn, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    HAL_NVIC_EnableIRQ(TIM3_IRQn);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HAL_TIM_Base_MspDeInit</span><span class="params">(TIM_HandleTypeDef* htim_base)</span></span><br><span class="line"></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(htim_base-&gt;Instance==TIM3)</span><br><span class="line">  &#123;</span><br><span class="line">    __TIM3_CLK_DISABLE();</span><br><span class="line">    HAL_NVIC_DisableIRQ(TIM3_IRQn);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Similarly, we need to append a handler in <code>stm32f1xx_it.c</code>.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TIM3_IRQHandler</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  HAL_TIM_IRQHandler(&amp;TIM_Handler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And the function <code>HAL_TIM_IRQHandler(&amp;TIM_Handler)</code> would call a callback function whose name is <code>void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)</code>. Just like the condition above, the implementation is necessary.</p>
+<pre><code class="C"><span class="function"><span class="keyword">void</span> <span class="title">HAL_TIM_PeriodElapsedCallback</span><span class="params">(TIM_HandleTypeDef *htim)</span></span>{
+    <span class="keyword">if</span>(htim-&gt;Instance == TIM3){        
+        timer_flag = <span class="number">1</span>;
+        timer_counter++;
+    }
+}
+</code></pre>
+<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><p>Finally, we could check the results.<br><img src="/images/init-stm32/result_1.png" style="width: 500px;"><br>Print <code>Hello</code> as request.<br><img src="/images/init-stm32/result_2.png" style="width: 500px;"><br>Press <code>PA11</code> to change the mode and press <code>PA12</code> to increment distance. The timer counter is always accumalted. For now, I’ve finished the required part.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/08/init-stm32/" data-id="cin2zw68z000fxccjwugtg0ie" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STM32/">STM32</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/11/design-pattern/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Design Pattern in Java
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/31/arm-inst/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Stuff in ARM Instruction</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Embedded-System/">Embedded System</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/">Software Architecture</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARM/">ARM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/">Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPA/">JPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/STM32/">STM32</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WRTNode/">WRTNode</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/JPA/" style="font-size: 10px;">JPA</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/RaspberryPi/" style="font-size: 10px;">RaspberryPi</a> <a href="/tags/STM32/" style="font-size: 10px;">STM32</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/WRTNode/" style="font-size: 10px;">WRTNode</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/04/11/jvm-classloader/">Java ClassLoader</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/11/design-pattern/">Design Pattern in Java</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/08/init-stm32/">Getting Started with STM32 in Windows</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/31/arm-inst/">Stuff in ARM Instruction</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/09/init-raspberry/">Getting started with RaspberryPi</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Sea Hai<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
